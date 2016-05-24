@@ -48,6 +48,7 @@ crashlytics.properties
 crashlytics-build.properties
 
 node_modules/*
+!node_modules/@angular/
 
 !node_modules/core-js/
 node_modules/core-js/*
