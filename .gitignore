@@ -47,5 +47,22 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 
-node_modules/
+node_modules/*
+
+!node_modules/core-js/
+node_modules/core-js/*
+!node_modules/core-js/client/
+
+!node_modules/zone.js/
+node_modules/zone.js/*
+!node_modules/zone.js/dist/
+
+!node_modules/reflect-metadata/
+
+!node_modules/systemjs/
+node_modules/systemjs/*
+!node_modules/systemjs/dist/
+
 typings/
+test/
+package.json
