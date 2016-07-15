@@ -23,6 +23,41 @@ var NKDatetime = (function () {
         };
         ngControl.valueAccessor = this; // override valueAccessor
     }
+    NKDatetime.prototype.ngAfterViewInit = function () {
+        this.init();
+    };
+    NKDatetime.prototype.ngOnDestroy = function () {
+        if (this.datepicker) {
+            this.datepicker.datepicker('destroy');
+        }
+        if (this.timepicker) {
+            this.timepicker.timepicker('remove');
+        }
+    };
+    NKDatetime.prototype.ngOnChanges = function (changes) {
+        if (changes) {
+            if (changes['datepickerOptions'] && this.datepicker) {
+                this.datepicker.datepicker('destroy');
+                if (changes['datepickerOptions'].currentValue) {
+                    this.datepicker = null;
+                    this.init();
+                }
+                else if (changes['datepickerOptions'].currentValue === false) {
+                    this.datepicker.remove();
+                }
+            }
+            if (changes['timepickerOptions'] && this.timepicker) {
+                this.timepicker.timepicker('remove');
+                if (changes['timepickerOptions'].currentValue) {
+                    this.timepicker = null;
+                    this.init();
+                }
+                else if (changes['timepickerOptions'].currentValue === false) {
+                    this.timepicker.parent().remove();
+                }
+            }
+        }
+    };
     NKDatetime.prototype.writeValue = function (value) {
         var _this = this;
         this.date = value;
@@ -31,12 +66,6 @@ var NKDatetime = (function () {
                 _this.updateModel(_this.date);
             }, 0);
         }
-    };
-    NKDatetime.prototype.ngOnInit = function () {
-        var _this = this;
-        setTimeout(function () {
-            _this.init();
-        }, 0);
     };
     NKDatetime.prototype.registerOnChange = function (fn) {
         this.onChange = fn;
@@ -86,7 +115,7 @@ var NKDatetime = (function () {
                 if (!isDate(_this.date)) {
                     _this.date = new Date();
                     if (_this.datepicker !== undefined) {
-                        _this.datepicker.datepicker('update', _this.date.toLocaleDateString('en-US'));
+                        _this.datepicker.datepicker('update', _this.date.toUTCString());
                     }
                 }
                 _this.date.setHours(parseInt(hours));
@@ -99,11 +128,11 @@ var NKDatetime = (function () {
         }
     };
     NKDatetime.prototype.updateModel = function (date) {
-        // update date
+        // update datepicker
         if (this.datepicker !== undefined) {
-            this.datepicker.datepicker('update', date.toLocaleDateString('en-US'));
+            this.datepicker.datepicker('update', date.toUTCString());
         }
-        // update time
+        // update timepicker
         if (this.timepicker !== undefined) {
             var hours = this.date.getHours();
             if (this.timepickerOptions.showMeridian) {
@@ -136,7 +165,7 @@ var NKDatetime = (function () {
     NKDatetime = __decorate([
         core_1.Component({
             selector: 'datetime',
-            template: "\n    <div class=\"form-inline\">\n        <div id=\"{{idDatePicker}}\" class=\"input-group date\">\n            <input type=\"text\" class=\"form-control\"/>\n            <div class=\"input-group-addon\">\n                <span [ngClass]=\"datepickerOptions.icon || 'glyphicon glyphicon-th'\"></span>\n            </div>\n        </div>\n        <div class=\"input-group bootstrap-timepicker timepicker\">\n            <input id=\"{{idTimePicker}}\" type=\"text\" class=\"form-control input-small\">\n            <span class=\"input-group-addon\"><i [ngClass]=\"timepickerOptions.icon || 'glyphicon glyphicon-time'\"></i></span>\n        </div>\n    </div>\n    "
+            template: "\n    <div class=\"form-inline\">\n        <div id=\"{{idDatePicker}}\" class=\"input-group date\">\n            <input type=\"text\" class=\"form-control\"/>\n            <div class=\"input-group-addon\">\n                <span [ngClass]=\"datepickerOptions.icon || 'glyphicon glyphicon-th'\"></span>\n            </div>\n        </div>\n        <div class=\"input-group bootstrap-timepicker timepicker\">\n            <input id=\"{{idTimePicker}}\" type=\"text\" class=\"form-control input-small\">\n            <span class=\"input-group-addon\"><i [ngClass]=\"timepickerOptions.icon || 'glyphicon glyphicon-time'\"></i></span>\n        </div>\n    </div>\n   "
         }), 
         __metadata('design:paramtypes', [common_1.NgControl])
     ], NKDatetime);

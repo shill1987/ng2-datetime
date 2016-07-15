@@ -1,4 +1,7 @@
-import {Component, Output, Input, EventEmitter, HostListener, OnInit} from '@angular/core';
+import {
+    Component, Output, Input, EventEmitter, HostListener, AfterViewInit, OnDestroy,
+    SimpleChanges, OnChanges
+} from '@angular/core';
 import {ControlValueAccessor, NgControl} from '@angular/common';
 
 @Component({
@@ -16,11 +19,11 @@ import {ControlValueAccessor, NgControl} from '@angular/common';
             <span class="input-group-addon"><i [ngClass]="timepickerOptions.icon || 'glyphicon glyphicon-time'"></i></span>
         </div>
     </div>
-    `
+   `
 })
-export class NKDatetime implements ControlValueAccessor, OnInit {
+export class NKDatetime implements ControlValueAccessor, AfterViewInit, OnDestroy, OnChanges {
     @Output()
-    dateChange:EventEmitter<Date> = new EventEmitter();
+    dateChange:EventEmitter<Date> = new EventEmitter<Date>();
     @Input('timepicker')
     timepickerOptions:any = {};
     @Input('datepicker')
@@ -40,6 +43,48 @@ export class NKDatetime implements ControlValueAccessor, OnInit {
     onTouched = () => {
     };
 
+    constructor(ngControl:NgControl) {
+        ngControl.valueAccessor = this; // override valueAccessor
+    }
+
+    ngAfterViewInit() {
+        this.init();
+    }
+
+    ngOnDestroy() {
+        if (this.datepicker) {
+            this.datepicker.datepicker('destroy');
+        }
+        if (this.timepicker) {
+            this.timepicker.timepicker('remove');
+        }
+    }
+
+    ngOnChanges(changes:SimpleChanges) {
+        if (changes) {
+            if (changes['datepickerOptions'] && this.datepicker) {
+                this.datepicker.datepicker('destroy');
+
+                if (changes['datepickerOptions'].currentValue) {
+                    this.datepicker = null;
+                    this.init();
+                } else if (changes['datepickerOptions'].currentValue === false) {
+                    this.datepicker.remove();
+                }
+            }
+            if (changes['timepickerOptions'] && this.timepicker) {
+                this.timepicker.timepicker('remove');
+
+                if (changes['timepickerOptions'].currentValue) {
+                    this.timepicker = null;
+                    this.init();
+                } else if (changes['timepickerOptions'].currentValue === false) {
+                    this.timepicker.parent().remove();
+                }
+            }
+        }
+    }
+
     writeValue(value:any):void {
         this.date = value;
         if (isDate(this.date)) {
@@ -47,16 +92,6 @@ export class NKDatetime implements ControlValueAccessor, OnInit {
                 this.updateModel(this.date);
             }, 0);
         }
-    }
-
-    ngOnInit() {
-        setTimeout(() => {
-            this.init();
-        }, 0);
-    }
-
-    constructor(ngControl:NgControl) {
-        ngControl.valueAccessor = this; // override valueAccessor
     }
 
     registerOnChange(fn:(_:any) => void):void {
@@ -69,7 +104,7 @@ export class NKDatetime implements ControlValueAccessor, OnInit {
 
     //////////////////////////////////
 
-    private init() {
+    private init():void {
         if (!this.datepicker && this.datepickerOptions !== false) {
             this.datepicker = (<any>$('#' + this.idDatePicker)).datepicker(this.datepickerOptions);
             this.datepicker
@@ -112,7 +147,7 @@ export class NKDatetime implements ControlValueAccessor, OnInit {
                         this.date = new Date();
 
                         if (this.datepicker !== undefined) {
-                            this.datepicker.datepicker('update', this.date.toLocaleDateString('en-US'));
+                            this.datepicker.datepicker('update', this.date.toUTCString());
                         }
                     }
                     this.date.setHours(parseInt(hours));
@@ -124,26 +159,25 @@ export class NKDatetime implements ControlValueAccessor, OnInit {
         }
     }
 
-    private updateModel(date?:Date) {
-        // update date
+    private updateModel(date?:Date):void {
+        // update datepicker
         if (this.datepicker !== undefined) {
-            this.datepicker.datepicker('update', date.toLocaleDateString('en-US'));
+            this.datepicker.datepicker('update', date.toUTCString());
         }
 
-        // update time
+        // update timepicker
         if (this.timepicker !== undefined) {
             let hours = this.date.getHours();
             if (this.timepickerOptions.showMeridian) {
                 // Convert 24 to 12 hour system
                 hours = (hours === 0 || hours === 12) ? 12 : hours % 12;
             }
-            let meridian = this.date.getHours() >= 12 ? ' PM' : ' AM';
-
+            const meridian = this.date.getHours() >= 12 ? ' PM' : ' AM';
             this.timepicker.timepicker('setTime', this.pad(hours) + ':' + this.date.getMinutes() + meridian);
         }
     }
 
-    private pad(value:any) {
+    private pad(value:any):string {
         return (value && value.toString().length < 2) ? '0' + value : value.toString();
     }
 }
