@@ -15,6 +15,7 @@ var AppComponent = (function () {
     function AppComponent() {
         this.date = new Date();
         this.date2 = new Date();
+        this.date4 = new Date();
         this.datepickerOpts = {
             startDate: new Date(),
             autoclose: true,
@@ -23,7 +24,17 @@ var AppComponent = (function () {
             assumeNearbyYear: true,
             format: 'D, d MM yyyy'
         };
+        this.date5 = new Date();
+        this.datepickerToOpts = {};
     }
+    AppComponent.prototype.handleDateFromChange = function (dateFrom) {
+        // update the model
+        this.dateFrom = dateFrom;
+        // do not mutate the object or angular won't detect the changes
+        this.datepickerToOpts = {
+            startDate: dateFrom
+        };
+    };
     AppComponent.prototype.getDate = function (dt) {
         return dt && dt.getTime();
     };
