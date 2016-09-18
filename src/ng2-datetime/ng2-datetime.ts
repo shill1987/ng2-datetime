@@ -49,7 +49,7 @@ export class NKDatetime implements ControlValueAccessor, AfterViewInit, OnDestro
     hasClearButton = false;
 
     @Input()
-    readonly = null;
+    readonly: any = null;
 
     date: Date; // ngModel
     dateModel: string;
