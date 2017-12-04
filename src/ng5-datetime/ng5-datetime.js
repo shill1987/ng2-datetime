@@ -224,4 +224,4 @@ var NKDatetimeModule = /** @class */ (function () {
     return NKDatetimeModule;
 }());
 exports.NKDatetimeModule = NKDatetimeModule;
-//# sourceMappingURL=ng2-datetime.js.map
+//# sourceMappingURL=ng5-datetime.js.map

@@ -9,18 +9,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var forms_1 = require("@angular/forms");
-var ng2_datetime_1 = require("./ng2-datetime");
+var ng5_datetime_1 = require("./ng5-datetime");
 var NKDatetimeModule = /** @class */ (function () {
     function NKDatetimeModule() {
     }
     NKDatetimeModule = __decorate([
         core_1.NgModule({
             imports: [common_1.CommonModule, forms_1.FormsModule],
-            exports: [ng2_datetime_1.NKDatetime],
-            declarations: [ng2_datetime_1.NKDatetime]
+            exports: [ng5_datetime_1.NKDatetime],
+            declarations: [ng5_datetime_1.NKDatetime]
         })
     ], NKDatetimeModule);
     return NKDatetimeModule;
 }());
 exports.NKDatetimeModule = NKDatetimeModule;
-//# sourceMappingURL=ng2-datetime.module.js.map
+//# sourceMappingURL=ng5-datetime.module.js.map

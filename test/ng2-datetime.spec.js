@@ -20,7 +20,7 @@ var DemoComponent = /** @class */ (function () {
     }
     __decorate([
         core_1.ViewChild('dt'),
-        __metadata("design:type", ng2_datetime_1.NKDatetime)
+        __metadata("design:type", typeof (_a = typeof ng2_datetime_1.NKDatetime !== "undefined" && ng2_datetime_1.NKDatetime) === "function" && _a || Object)
     ], DemoComponent.prototype, "dt", void 0);
     DemoComponent = __decorate([
         core_1.Component({
@@ -29,6 +29,7 @@ var DemoComponent = /** @class */ (function () {
         })
     ], DemoComponent);
     return DemoComponent;
+    var _a;
 }());
 exports.DemoComponent = DemoComponent;
 testing_1.describe('ng2-datetime', function () {
