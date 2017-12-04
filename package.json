@@ -1,11 +1,11 @@
 {
-  "name": "ng2-datetime",
-  "version": "1.1.5",
-  "description": "Bootstrap datetime picker for Angular2",
-  "main": "ng2-datetime.js",
+  "name": "ng5-datetime",
+  "version": "1.1.6",
+  "description": "Bootstrap datetime picker for Angular5",
+  "main": "ng5-datetime.js",
   "keywords": [
     "angular2",
-    "ng2",
+    "ng5",
     "bootstrap",
     "date",
     "time",
@@ -27,25 +27,28 @@
     "url": "https://github.com/nkalinov/ng2-datetime.git"
   },
   "dependencies": {
-    "@angular/common": "2.0.0",
-    "@angular/compiler": "2.0.0",
-    "@angular/core": "2.0.0",
-    "@angular/forms": "2.0.0",
-    "@angular/http": "2.0.0",
-    "@angular/platform-browser": "2.0.0",
-    "@angular/platform-browser-dynamic": "2.0.0",
-    "core-js": "^2.4.1",
-    "systemjs": "0.19.27",
-    "rxjs": "5.0.0-beta.12",
-    "zone.js": "^0.6.23",
-    "jquery": "^2.2.1",
-    "bootstrap": "^3.3.6",
+    "@angular/animations": "^5.0.0",
+    "@angular/common": "^5.0.0",
+    "@angular/compiler": "^5.0.0",
+    "@angular/core": "^5.0.0",
+    "@angular/forms": "^5.0.0",
+    "@angular/http": "^5.0.0",
+    "@angular/platform-browser": "^5.0.0",
+    "@angular/platform-browser-dynamic": "^5.0.0",
+    "@angular/router": "^5.0.0",
+    "bootstrap": "^3.3.7",
     "bootstrap-datepicker": "^1.6.0",
-    "bootstrap-timepicker": "^0.5.2"
+    "bootstrap-timepicker": "^0.5.2",
+    "core-js": "^2.4.1",
+    "jquery": "^3.2.0",
+    "rxjs": "^5.5.2",
+    "systemjs": "^0.19.27",
+    "typings": "^2.1.1",
+    "zone.js": "^0.8.14"
   },
   "devDependencies": {
-    "jasmine-core": "^2.4.1",    
-    "karma": "^0.13.22",
+    "jasmine-core": "^2.4.1",
+    "karma": "~1.7.0",
     "karma-es6-shim": "^0.2.3",
     "karma-jasmine": "^0.3.8",
     "karma-phantomjs-launcher": "^1.0.0",
@@ -53,7 +56,7 @@
     "phantomjs-prebuilt": "^2.1.5",
     "concurrently": "^2.0.0",
     "lite-server": "^2.2.0",
-    "typescript": "^1.8.10"
+    "typescript": "^2.4.2"
   },
   "peerDependencies": {
     "typings": "*"

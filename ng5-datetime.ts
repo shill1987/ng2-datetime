@@ -1,0 +1,1 @@
+export {NKDatetime, NKDatetimeModule} from './src/ng5-datetime/ng5-datetime';

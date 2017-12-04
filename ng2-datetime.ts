@@ -1,1 +1,0 @@
-export {NKDatetime, NKDatetimeModule} from './src/ng2-datetime/ng2-datetime';

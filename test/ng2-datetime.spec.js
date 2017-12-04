@@ -8,25 +8,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var testing_1 = require('angular2/testing');
-var browser_1 = require('angular2/platform/testing/browser');
-var ng2_datetime_1 = require('../src/ng2-datetime/ng2-datetime');
-var core_1 = require('@angular/core');
+Object.defineProperty(exports, "__esModule", { value: true });
+var testing_1 = require("angular2/testing");
+var browser_1 = require("angular2/platform/testing/browser");
+var ng2_datetime_1 = require("../src/ng2-datetime/ng2-datetime");
+var core_1 = require("@angular/core");
 testing_1.setBaseTestProviders(browser_1.TEST_BROWSER_PLATFORM_PROVIDERS, browser_1.TEST_BROWSER_APPLICATION_PROVIDERS);
-var DemoComponent = (function () {
+var DemoComponent = /** @class */ (function () {
     function DemoComponent() {
         this.date = new Date();
     }
     __decorate([
-        core_1.ViewChild('dt'), 
-        __metadata('design:type', ng2_datetime_1.NKDatetime)
+        core_1.ViewChild('dt'),
+        __metadata("design:type", ng2_datetime_1.NKDatetime)
     ], DemoComponent.prototype, "dt", void 0);
     DemoComponent = __decorate([
         core_1.Component({
             directives: [ng2_datetime_1.NKDatetime],
             template: "<datetime #dt [(ngModel)]=\"date\"></datetime>"
-        }), 
-        __metadata('design:paramtypes', [])
+        })
     ], DemoComponent);
     return DemoComponent;
 }());
